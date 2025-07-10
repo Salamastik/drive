@@ -28,7 +28,7 @@ sudo apt install -y python3.11 python3.11-venv python3.11-dev
 git clone git@github.com:Salamastik/open-webui.git
 python3.11 -m venv venv
 . venv/bin/activate
-pip install -r  requirements.txt
+pip install -r  backend/requirements.txt
 npm install 
 npm rub build
 
