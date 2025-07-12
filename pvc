@@ -1,0 +1,89 @@
+    mount_dynamic: |
+      from kubernetes import client, config
+
+      def get_current_namespace():
+        try:
+          with open("/var/run/secrets/kubernetes.io/serviceaccount/namespace", "r") as f:
+            print(f"Reading namespace from file: {f.name}")
+            return f.read().strip()
+        except FileNotFoundError:
+          print("Namespace file not found, defaulting to 'jhub'")
+          return "default"
+
+      def pre_spawn_hook(spawner):
+        if 'pvc' in spawner.user_options and spawner.user_options['pvc'] != 'false':
+          pvc_name = spawner.user_options['pvc']
+          spawner.log.info(f"Attempting to mount PVC: {pvc_name}")
+          try:
+            config.load_incluster_config()
+            v1 = client.CoreV1Api()
+            namespace = get_current_namespace()
+            v1.read_namespaced_persistent_volume_claim(name=pvc_name, namespace=namespace)
+            spawner.volumes.append({
+              'name': 'dinamic-pvc',
+              'persistentVolumeClaim': {
+                  'claimName': pvc_name
+              }
+            })
+            spawner.volume_mounts.append({
+              'mountPath': '/check',
+              'name': 'dinamic-pvc',
+              'subPath': 'check/{username}'
+            })
+            spawner.log.info(f"Successfully mounted PVC: {pvc_name}")
+          except client.exceptions.ApiException as e:
+            spawner.log.error(f"Failed to mount PVC {pvc_name}: {e}")
+            raise ValueError(f"Cannot mount PVC {pvc_name}: it does not exist or is not accessible")
+
+      c.KubeSpawner.pre_spawn_hook = pre_spawn_hook  
+    # 1
+    list_pvc: |
+      from kubespawner import KubeSpawner
+      from kubernetes import client, config
+
+      def get_current_namespace():
+        try:
+          with open("/var/run/secrets/kubernetes.io/serviceaccount/namespace", "r") as f:
+            print(f"Reading namespace from file: {f.name}")
+            return f.read().strip()
+        except FileNotFoundError:
+          print("Namespace file not found, using default namespace.")
+          return "jhub"  # החלף ב-namespace שלך, למשל "jhub" או "default"
+
+      def list_pvcs():
+        config.load_incluster_config()
+        v1 = client.pvcV1Api()
+        namespace = get_current_namespace()
+        pvcs = v1.list_namespaced_persistent_volume_claim(namespace=namespace)
+        return [pvc.metadata.name for pvc in pvcs.items]
+
+      def custom_options_form(spawner):
+        spawner.log.info("=== profile_list BEFORE ===")
+        spawner.log.info(spawner.profile_list)
+        pvc_dict = {pvc: {"description": "Will be mounted to /"+pvc, "display_name": pvc} for pvc in list_pvcs()}
+        spawner.log.info(f"Available PVCs: {pvc_dict}")
+        spawner.log.info("{spawner.profile_list[0]['profile_options']['pvc']['choises']}")
+        # השינוי עצמו
+        spawner.profile_list[0]["profile_options"]["pvc"]["choices"].update(pvc_dict)
+
+        # לוג אחרי השינוי
+        spawner.log.info("=== profile_list AFTER ===")
+        spawner.log.info(spawner.profile_list)
+
+        return spawner._options_form_default()
+
+      c.KubeSpawner.options_form = custom_options_form
+
+
+
+
+
+
+
+        pvc:
+          display_name: "PVC"
+          index: 2
+          choices:
+            no:
+              display_name: "No PVC"
+              default: true
