@@ -18,19 +18,21 @@ nvm current # Should print "v22.17.0".
 npm -v # Should print "10.9.2".
 npm install -g @google/gemini-cli
 
-sudo usermod -aG docker $USER
-newgrp docker
 
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 sudo apt install -y python3.11 python3.11-venv python3.11-dev
 
+ssh-keygen
+
 git clone git@github.com:Salamastik/open-webui.git
+cd open-webui
 python3.11 -m venv venv
 . venv/bin/activate
 pip install -r  backend/requirements.txt
 npm install 
 npm rub build
 
-ssh-keygen
 
+sudo usermod -aG docker $USER
+newgrp docker
