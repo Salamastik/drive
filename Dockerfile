@@ -23,7 +23,8 @@ RUN pip install hf_transfer
 #smoldocling_mlx - no need , its for apple
 ########
 
-
+# model list
+# ds4sd--DocumentFigureClassifier EasyOcr ibm-granite--granite-vision-3.1-2b-preview ds4sd--docling-models ds4sd--SmolDocling-256M-preview HuggingFaceTB--SmolVLM-256M-Instruct
 
 # עדכון והתקנת תלויות OCR עבור עברית, אנגלית וערבית
 RUN dnf update -y && \
