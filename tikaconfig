@@ -38,3 +38,266 @@
     </params>
   </parser>
 </properties>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+    <!-- Service Configuration -->
+    <service>
+        <servers>
+            <server>
+                <host>0.0.0.0</host>
+                <port>9998</port>
+                <enableUnsecureFeatures>false</enableUnsecureFeatures>
+                <enableFileUrl>false</enableFileUrl>
+                <maxFiles>10000</maxFiles>
+                <maxRequestSize>1000000000</maxRequestSize><!-- 1GB -->
+                <maxFileSize>1000000000</maxFileSize><!-- 1GB -->
+                <digestMarkLimit>1000000</digestMarkLimit><!-- 1MB -->
+                <digestAlgorithm>sha256</digestAlgorithm>
+                <returnStackTrace>false</returnStackTrace>
+                <logLevel>INFO</logLevel>
+                <cors>
+                    <enabled>true</enabled>
+                    <allowedOrigins>*</allowedOrigins>
+                    <allowedMethods>GET,POST,PUT,DELETE,OPTIONS</allowedMethods>
+                    <allowedHeaders>*</allowedHeaders>
+                </cors>
+            </server>
+        </servers>
+    </service>
+
+    <!-- Parser Configuration -->
+    <parsers>
+        <!-- OCR Configuration for Images and PDFs -->
+        <parser class="org.apache.tika.parser.ocr.TesseractOCRParser">
+            <params>
+                <param name="language" type="string">eng+heb+ara+rus+por+chi_sim+chi_tra</param>
+                <param name="pageSegMode" type="string">1</param>
+                <param name="ocrEngineMode" type="string">1</param>
+                <param name="enableImagePreprocessing" type="bool">true</param>
+                <param name="imageType" type="string">png</param>
+                <param name="density" type="int">300</param>
+                <param name="depth" type="int">4</param>
+                <param name="colorspace" type="string">gray</param>
+                <param name="filter" type="string">triangle</param>
+                <param name="resize" type="int">900</param>
+                <param name="applyRotation" type="bool">true</param>
+                <param name="skipOcr" type="bool">false</param>
+                <param name="outputType" type="string">hocr</param>
+                <param name="preserveInterwordSpacing" type="bool">true</param>
+                <param name="minFileSizeToOcr" type="long">0</param>
+                <param name="maxFileSizeToOcr" type="long">2000000000</param><!-- 2GB -->
+                <param name="timeout" type="int">120000</param><!-- 2 minutes -->
+            </params>
+        </parser>
+
+        <!-- PDF Parser with OCR Integration -->
+        <parser class="org.apache.tika.parser.pdf.PDFParser">
+            <params>
+                <param name="extractInlineImages" type="bool">true</param>
+                <param name="extractUniqueInlineImagesOnly" type="bool">false</param>
+                <param name="extractAnnotationText" type="bool">true</param>
+                <param name="extractAcroFormContent" type="bool">true</param>
+                <param name="extractBookmarksText" type="bool">true</param>
+                <param name="suppressDuplicateOverlappingText" type="bool">false</param>
+                <param name="sortByPosition" type="bool">false</param>
+                <param name="enableAutoSpace" type="bool">true</param>
+                <param name="averageCharTolerance" type="float">0.3</param>
+                <param name="spacingTolerance" type="float">0.5</param>
+                <param name="catchIntermediateIOExceptions" type="bool">true</param>
+                <param name="ocrStrategy" type="string">ocr_and_text_extraction</param>
+                <param name="ocrRenderingStrategy" type="string">render_pages_at_end</param>
+                <param name="ocrDPI" type="int">300</param>
+                <param name="ocrImageType" type="string">gray</param>
+                <param name="ocrImageFormatName" type="string">png</param>
+                <param name="extractFontNames" type="bool">true</param>
+                <param name="setKCMS" type="bool">false</param>
+                <param name="detectAngles" type="bool">false</param>
+                <param name="extractMarkedContent" type="bool">true</param>
+            </params>
+        </parser>
+
+        <!-- Office Document Parsers -->
+        <parser class="org.apache.tika.parser.microsoft.OfficeParser">
+            <params>
+                <param name="extractMacros" type="bool">false</param>
+                <param name="includeDeletedContent" type="bool">false</param>
+                <param name="includeShapeBasedContent" type="bool">true</param>
+                <param name="includeMoveFromContent" type="bool">false</param>
+                <param name="includeHeadersAndFooters" type="bool">true</param>
+                <param name="concatenatePhoneticRuns" type="bool">true</param>
+                <param name="useSAXDocxExtractor" type="bool">true</param>
+                <param name="useSAXPptxExtractor" type="bool">true</param>
+            </params>
+        </parser>
+
+        <!-- Image Parser Configuration -->
+        <parser class="org.apache.tika.parser.image.ImageParser">
+            <params>
+                <param name="extractInlineImages" type="bool">true</param>
+                <param name="extractThumbnails" type="bool">true</param>
+                <param name="includeOriginal" type="bool">false</param>
+                <param name="maxImageSize" type="long">100000000</param><!-- 100MB -->
+            </params>
+        </parser>
+
+        <!-- JPEG Parser -->
+        <parser class="org.apache.tika.parser.image.JpegParser">
+            <params>
+                <param name="extractInlineImages" type="bool">true</param>
+                <param name="extractThumbnails" type="bool">true</param>
+                <param name="includeOriginal" type="bool">false</param>
+            </params>
+        </parser>
+
+        <!-- TIFF Parser -->
+        <parser class="org.apache.tika.parser.image.TiffParser">
+            <params>
+                <param name="extractInlineImages" type="bool">true</param>
+                <param name="extractThumbnails" type="bool">true</param>
+                <param name="includeOriginal" type="bool">false</param>
+            </params>
+        </parser>
+
+        <!-- WebP Parser -->
+        <parser class="org.apache.tika.parser.image.WebPParser">
+            <params>
+                <param name="extractInlineImages" type="bool">true</param>
+                <param name="extractThumbnails" type="bool">true</param>
+                <param name="includeOriginal" type="bool">false</param>
+            </params>
+        </parser>
+
+        <!-- Archive Parsers -->
+        <parser class="org.apache.tika.parser.pkg.PackageParser">
+            <params>
+                <param name="detectEntryNames" type="bool">true</param>
+                <param name="allowEmbeddedDocuments" type="bool">true</param>
+                <param name="maxEmbeddedDocuments" type="int">200</param>
+                <param name="maxEmbeddedDocumentBytes" type="long">100000000</param><!-- 100MB -->
+            </params>
+        </parser>
+
+        <!-- Text Parser -->
+        <parser class="org.apache.tika.parser.txt.TXTParser">
+            <params>
+                <param name="charset" type="string">UTF-8</param>
+            </params>
+        </parser>
+
+        <!-- HTML Parser -->
+        <parser class="org.apache.tika.parser.html.HtmlParser">
+            <params>
+                <param name="extractScripts" type="bool">false</param>
+                <param name="treatTagsAsInline">a,abbr,acronym,area,b,bdi,bdo,big,br,button,cite,code,del,dfn,em,font,i,img,input,ins,kbd,label,map,mark,math,noscript,object,output,q,ruby,s,samp,select,small,span,strong,sub,sup,svg,textarea,time,tt,u,var</param>
+            </params>
+        </parser>
+
+        <!-- RTF Parser -->
+        <parser class="org.apache.tika.parser.rtf.RTFParser"/>
+
+        <!-- Email Parser -->
+        <parser class="org.apache.tika.parser.mail.RFC822Parser">
+            <params>
+                <param name="extractAttachments" type="bool">true</param>
+                <param name="extractAllAlternatives" type="bool">false</param>
+            </params>
+        </parser>
+    </parsers>
+
+    <!-- Content Type Detection -->
+    <detectors>
+        <detector class="org.apache.tika.detect.TypeDetector"/>
+        <detector class="org.apache.tika.detect.MagicDetector"/>
+        <detector class="org.apache.tika.detect.EncodingDetector"/>
+        <detector class="org.apache.tika.detect.CompositeDetector"/>
+    </detectors>
+
+    <!-- Language Detection -->
+    <translators>
+        <translator class="org.apache.tika.language.detect.OptimaizeLangDetector">
+            <params>
+                <param name="isEnabled" type="bool">true</param>
+            </params>
+        </translator>
+    </translators>
+
+    <!-- Metadata Enhancement -->
+    <metadataFilters>
+        <metadataFilter class="org.apache.tika.metadata.filter.ClearByMimeMetadataFilter">
+            <params>
+                <param name="mimeTypes">image/jpeg,image/tiff,image/png</param>
+                <param name="metadataFields">Creation-Date,Last-Modified,Last-Save-Date</param>
+            </params>
+        </metadataFilter>
+    </metadataFilters>
+
+    <!-- Resource Limits -->
+    <resourceTimeouts>
+        <timeout>600000</timeout><!-- 10 minutes general timeout -->
+    </resourceTimeouts>
+
+    <!-- Fork Parser Settings -->
+    <fork>
+        <java>
+            <args>
+                <arg>-Xmx2g</arg>
+                <arg>-XX:+UseG1GC</arg>
+                <arg>-XX:MaxGCPauseMillis=200</arg>
+                <arg>-Djava.awt.headless=true</arg>
+                <arg>-Dfile.encoding=UTF-8</arg>
+                <arg>-Dsun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider</arg>
+                <arg>-Djava.util.concurrent.ForkJoinPool.common.parallelism=4</arg>
+            </args>
+        </java>
+        <poolSize>5</poolSize>
+        <spawnChild>true</spawnChild>
+        <maxFilesProcessedByAFork>100</maxFilesProcessedByAFork>
+        <timeoutMillis>600000</timeoutMillis><!-- 10 minutes -->
+        <pulseMillis>1000</pulseMillis>
+        <maxRestarts>3</maxRestarts>
+    </fork>
+
+    <!-- Async Configuration -->
+    <async>
+        <numClients>5</numClients>
+        <maxQueueSize>10000</maxQueueSize>
+        <maxForksAllowed>5</maxForksAllowed>
+    </async>
+
+    <!-- Fetcher Configuration -->
+    <fetchers>
+        <fetcher class="org.apache.tika.pipes.fetcher.fs.FileSystemFetcher">
+            <params>
+                <param name="name" type="string">filesystem</param>
+                <param name="basePath" type="string">/tmp</param>
+                <param name="extractFileSystemMetadata" type="bool">true</param>
+            </params>
+        </fetcher>
+
+        <fetcher class="org.apache.tika.pipes.fetcher.http.HttpFetcher">
+            <params>
+                <param name="name" type="string">http</param>
+                <param name="connectTimeout" type="int">60000</param>
+                <param name="requestTimeout" type="int">300000</param>
+                <param name="maxConnections" type="int">100</param>
+                <param name="maxConnectionsPerRoute" type="int">50</param>
+                <param name="maxErrMsgLen" type="int">10000</param>
+                <param name="maxRedirects" type="int">10</param>
+                <param name="userAgent" type="string">Tika Server</param>
+            </params>
+        </fetcher>
+    </fetchers>
+
+    <!-- Emitter Configuration -->
+    <emitters>
+        <emitter class="org.apache.tika.pipes.emitter.fs.FileSystemEmitter">
+            <params>
+                <param name="name" type="string">filesystem</param>
+                <param name="basePath" type="string">/tmp/output</param>
+            </params>
+        </emitter>
+    </emitters>
+</properties>
