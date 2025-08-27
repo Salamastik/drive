@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+  <!-- שימוש ב-OCR דרך Tesseract -->
+  <parsers>
+    <parser class="org.apache.tika.parser.DefaultParser">
+      <parser-exclude class="org.apache.tika.parser.ocr.TesseractOCRParser"/>
+    </parser>
+
+    <!-- OCR Parser -->
+    <parser class="org.apache.tika.parser.ocr.TesseractOCRParser">
+      <params>
+        <!-- השפות המותקנות: eng=אנגלית, heb=עברית, ara=ערבית, rus=רוסית, por=פורטוגזית, chi_sim=סינית מפושטת, chi_tra=סינית מסורתית -->
+        <param name="language" type="string">eng+heb+ara+rus+por+chi_sim+chi_tra</param>
+
+        <!-- נתיב ל-Tesseract (ב-Container זה פשוט tesseract ב- PATH) -->
+        <param name="tesseractPath" type="string">/usr/bin</param>
+
+        <!-- שימוש ב-PDF+OCR תמיד -->
+        <param name="applyRotation" type="boolean">true</param>
+        <param name="deskew" type="boolean">true</param>
+        <param name="enableImageProcessing" type="string">true</param>
+
+        <!-- Quality vs speed: 300dpi עדיף לדיוק -->
+        <param name="density" type="int">300</param>
+
+        <!-- Timeouts -->
+        <param name="timeout" type="int">120</param>
+      </params>
+    </parser>
+  </parsers>
+
+  <!-- PDF Parser: לאפשר OCR כ-Default -->
+  <parser class="org.apache.tika.parser.pdf.PDFParser">
+    <params>
+      <param name="ocrStrategy" type="string">OCR_AND_TEXT_EXTRACTION</param>
+      <!-- אפשר גם OCR_ONLY אם רוצים רק OCR -->
+      <param name="ocrDPI" type="int">300</param>
+    </params>
+  </parser>
+</properties>
