@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
     tesseract-ocr-por \
     tesseract-ocr-chi-sim \
     tesseract-ocr-chi-tra \
+    tesseract-ocr-eng \
+    fonts-noto \
+    fonts-freefont-ttf \
+    ttf-mscorefonts-installer \
     libtiff-tools \
     curl \
     unzip \
