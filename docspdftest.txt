@@ -1,0 +1,89 @@
+from docx import Document
+from docx.shared import Inches
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from fpdf import FPDF
+import requests
+from PIL import Image
+from io import BytesIO
+
+# ==== הורדת תמונות לדוגמה ====
+img_url1 = "https://upload.wikimedia.org/wikipedia/commons/6/6e/Assembly_line.jpg"
+img1 = Image.open(BytesIO(requests.get(img_url1).content))
+img1.save("assembly_rich.jpg")
+
+img_url2 = "https://upload.wikimedia.org/wikipedia/commons/3/3f/Carbon_fiber_lay-up.jpg"
+img2 = Image.open(BytesIO(requests.get(img_url2).content))
+img2.save("science_rich.jpg")
+
+# ==== יצירת DOCX: דוח תעשייתי עשיר ====
+doc = Document()
+doc.add_heading("דוח תעשייתי: ניתוח תהליך ייצור ושיפור קווי הרכבה", level=1)
+doc.add_paragraph("מאת: מחלקת הנדסה ותפעול, נובמבר 2025")
+
+doc.add_heading("תקציר מנהלים", level=2)
+doc.add_paragraph("דוח זה מנתח את קווי ההרכבה במפעל האלקטרומכני ומציע פתרונות לשיפור התפוקה, היעילות והאוטומציה.")
+
+doc.add_heading("סקירת המפעל", level=2)
+doc.add_paragraph("המפעל מפעיל שלושה קווי הרכבה עיקריים. כל קו כולל תחנות חיבור, בדיקה ואריזה. נמצא כי זמני ההמתנה בין התחנות גבוהים מהממוצע, בעיקר עקב חוסר סנכרון בין יחידות המשנה.")
+
+doc.add_heading("נתונים כמותיים", level=2)
+table = doc.add_table(rows=1, cols=4)
+hdr_cells = table.rows[0].cells
+hdr_cells[0].text = "קו הרכבה"
+hdr_cells[1].text = "תפוקה יומית (יחידות)"
+hdr_cells[2].text = "עלות ליחידה (ש\"ח)"
+hdr_cells[3].text = "זמן השבתה (שעות)"
+data = [
+    ["קו A", "1200", "35", "2"],
+    ["קו B", "950", "33", "3"],
+    ["קו C", "1100", "36", "1.5"]
+]
+for row in data:
+    cells = table.add_row().cells
+    for i, val in enumerate(row):
+        cells[i].text = val
+
+doc.add_heading("ניתוח גורמי חוסר יעילות", level=2)
+doc.add_paragraph("גורמים מרכזיים: חוסר סנכרון בין תחנות, זמני המתנה ארוכים, חוסר גמישות בעמדות העבודה והדרכה לא מספקת.")
+
+doc.add_heading("המלצות לשיפור", level=2)
+doc.add_paragraph("1. יישום מערכת ניטור בזמן אמת (MES).\n2. שילוב רובוטים קלים (Cobots) בתחנות קריטיות.\n3. שינוי סידור תחנות לפי זרימת מוצר.\n4. הדרכת עובדים על עקרונות 5S.")
+
+doc.add_heading("תוכנית יישום", level=2)
+doc.add_paragraph("פיילוט בקו A למשך 3 חודשים. מדידה ומעקב אחר תפוקה, איכות וזמני השבתה. הרחבה לשאר הקווים בהתאם לתוצאות.")
+
+doc.add_picture("assembly_rich.jpg", width=Inches(5))
+last_paragraph = doc.paragraphs[-1] 
+last_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+doc.add_heading("סיכום", level=2)
+doc.add_paragraph("יישום ההמלצות צפוי להעלות את התפוקה בכ-18% ולהקטין זמני עצירה בכ-25%.")
+
+doc.save("openwebui_report_rich.docx")
+
+# ==== יצירת PDF: תוכן מדעי עשיר ====
+pdf = FPDF()
+pdf.add_page()
+pdf.set_font("Arial", 'B', 16)
+pdf.cell(0, 10, "חדשנות בחומרים מרוכבים לתעשייה מתקדמת", ln=True, align='C')
+pdf.ln(5)
+
+pdf.set_font("Arial", '', 12)
+pdf.multi_cell(0, 8, "הקדמה:\nבעשור האחרון חלה התקדמות משמעותית בתחום החומרים המרוכבים, בעיקר בתעשיות התעופה, הרכב והאנרגיה הירוקה. חומרים אלו משלבים חוזק גבוה עם משקל נמוך ועמידות בפני שחיקה, חום ולחצים.\n")
+
+pdf.multi_cell(0, 8, "מבנה ומנגנונים:\nהמרכיבים העיקריים הם סיבי חיזוק (פחמן, זכוכית, קוולאר) ומטריצה פולימרית המקשרת ביניהם. הטמעת סיבים בשכבות מאפשרת פיזור עומסים יעיל והגברת חוזק המבנה.")
+
+pdf.image("science_rich.jpg", x=25, y=60, w=160)
+pdf.set_y(130)
+
+pdf.multi_cell(0, 8, "תהליכי ייצור חדשניים:\nהדפסת תלת-ממד עם סיבי חיזוק מובנים, שילוב סיבי ננו, ושרפים תרמופלסטיים ניתנים למחזור מאפשרים התאמה מדויקת לצרכים הנדסיים ספציפיים.\n")
+
+pdf.multi_cell(0, 8, "השוואת חומרים:\nפחמן – חוזק גבוה, קל. זכוכית – עלות נמוכה, חוזק בינוני. קוולאר – עמידות בפני חיתוך ושריטות.\n")
+
+pdf.multi_cell(0, 8, "מגמות עתידיות:\nחומרים חכמים עם חיישנים מובנים, תהליכי ייצור ירוקים ואוטומציה תעשייתית.\n")
+
+pdf.multi_cell(0, 8, "סיכום:\nחומרים מרוכבים ממשיכים להוביל את ההנדסה המודרנית, והשילוב של חומרים חכמים, תהליכי ייצור מתקדמים וחשיבה סביבתית צפוי להביא לפריצות דרך משמעותיות בתעשיות רבות.")
+
+pdf.output("openwebui_science_rich.pdf")
+
+print("נוצרו הקבצים: openwebui_report_rich.docx ו-openwebui_science_rich.pdf")
