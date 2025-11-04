@@ -1,0 +1,122 @@
+# ================================================
+# Performance-Optimized Configuration for Open WebUI 0.6.26
+# Disables features added after version 0.3.32 that impact performance
+# ================================================
+
+# ===================================================================
+# WebSocket Configuration - BIGGEST IMPACT ON PERFORMANCE
+# ===================================================================
+# Disables: 
+# - YDOC collaborative editing (7 new WebSocket events)
+# - Real-time awareness updates (cursor position, selections)
+# - Channel events broadcasting
+# - Notes real-time synchronization
+# 
+# Effect: Eliminates 100+ messages per minute during active editing
+ENABLE_WEBSOCKET_SUPPORT=False
+
+# ===================================================================
+# Redis Configuration
+# ===================================================================
+# Leave empty if you don't have a Redis server running
+# This prevents connection attempts and pub/sub overhead
+WEBSOCKET_MANAGER=
+REDIS_URL=
+
+# If you DO have Redis, uncomment and configure:
+# WEBSOCKET_MANAGER=redis
+# REDIS_URL=redis://localhost:6379/0
+# REDIS_CLUSTER=False
+# WEBSOCKET_REDIS_LOCK_TIMEOUT=60
+
+# ===================================================================
+# OpenTelemetry - Monitoring & Tracing
+# ===================================================================
+# Disables all monitoring/tracing overhead
+# Eliminates instrumentation of HTTP, SQLAlchemy, Redis, etc.
+ENABLE_OTEL=False
+ENABLE_OTEL_TRACES=False
+ENABLE_OTEL_METRICS=False
+ENABLE_OTEL_LOGS=False
+
+# ===================================================================
+# Real-time Database Updates
+# ===================================================================
+# Disables automatic DB writes on every chat event
+# Chat messages will still be saved, but not on every streaming chunk
+ENABLE_REALTIME_CHAT_SAVE=False
+
+# ===================================================================
+# Compression Middleware
+# ===================================================================
+# Disables CPU-intensive compression/decompression
+# Trade bandwidth for CPU cycles
+ENABLE_COMPRESSION_MIDDLEWARE=False
+
+# ===================================================================
+# Version Checking & Updates
+# ===================================================================
+# Disables background version checks (reduces network traffic)
+ENABLE_VERSION_UPDATE_CHECK=False
+
+# ===================================================================
+# Query Caching
+# ===================================================================
+# Keep disabled to avoid cache management overhead
+ENABLE_QUERIES_CACHE=False
+
+# ===================================================================
+# Database Configuration
+# ===================================================================
+# Disable active status updates (reduces DB writes)
+DATABASE_USER_ACTIVE_STATUS_UPDATE_INTERVAL=0
+
+# Optimize connection pool (adjust based on your usage)
+DATABASE_POOL_SIZE=5
+DATABASE_POOL_MAX_OVERFLOW=10
+DATABASE_POOL_TIMEOUT=30
+DATABASE_POOL_RECYCLE=3600
+
+# ===================================================================
+# Logging Configuration
+# ===================================================================
+# Reduce logging to minimize I/O overhead
+GLOBAL_LOG_LEVEL=WARNING
+SOCKET_LOG_LEVEL=ERROR
+MAIN_LOG_LEVEL=WARNING
+DB_LOG_LEVEL=ERROR
+MODELS_LOG_LEVEL=WARNING
+
+# ===================================================================
+# Server Workers
+# ===================================================================
+# Use single worker for consistency and lower memory usage
+# Increase if you need to handle more concurrent users
+UVICORN_WORKERS=1
+
+# ===================================================================
+# Optional: Disable Additional Features
+# ===================================================================
+# Uncomment these if you don't use these features:
+
+# ENABLE_CHANNELS=False
+# ENABLE_NOTES=False
+# ENABLE_COMMUNITY_SHARING=False
+# ENABLE_MESSAGE_RATING=False
+
+# ===================================================================
+# Advanced: HTTP Client Timeouts
+# ===================================================================
+# Adjust if needed
+AIOHTTP_CLIENT_TIMEOUT=300
+AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST=10
+
+# ===================================================================
+# Notes
+# ===================================================================
+# After creating this file, restart the backend:
+#   cd backend
+#   .\start_windows.bat
+#
+# To verify settings are loaded, check the logs on startup
+# You should see reduced socket connections and no YDOC events
