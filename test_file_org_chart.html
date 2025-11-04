@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבנה ארגוני - חברת טכנולוג'ייט</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #5a67d8;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+        .chart-container {
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        .info-box {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        .info-box h3 {
+            color: #2d3748;
+            margin-top: 0;
+        }
+        .employee-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .employee-card {
+            background: white;
+            border: 2px solid #cbd5e0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .employee-card strong {
+            color: #5a67d8;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .questions {
+            background: #fed7d7;
+            padding: 25px;
+            border-radius: 10px;
+            border-right: 5px solid #f56565;
+        }
+        .questions h2 {
+            color: #c53030;
+            margin-top: 0;
+        }
+        .questions ul {
+            line-height: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 מבנה ארגוני</h1>
+        <p class="subtitle">חברת טכנולוג'ייט בע"מ | עדכון אחרון: נובמבר 2024</p>
+        
+        <div class="chart-container">
+            <svg width="900" height="600" viewBox="0 0 900 600">
+                <!-- CEO - רמה 1 -->
+                <rect x="350" y="20" width="200" height="80" fill="#5a67d8" rx="10"/>
+                <text x="450" y="50" text-anchor="middle" fill="white" font-size="16" font-weight="bold">דנה כהן</text>
+                <text x="450" y="70" text-anchor="middle" fill="white" font-size="14">מנכ"לית</text>
+                <circle cx="450" cy="85" r="8" fill="#fbbf24"/>
+                
+                <!-- קווי חיבור לרמה 2 -->
+                <line x1="450" y1="100" x2="450" y2="130" stroke="#4a5568" stroke-width="2"/>
+                <line x1="150" y1="130" x2="750" y2="130" stroke="#4a5568" stroke-width="2"/>
+                <line x1="150" y1="130" x2="150" y2="150" stroke="#4a5568" stroke-width="2"/>
+                <line x1="450" y1="130" x2="450" y2="150" stroke="#4a5568" stroke-width="2"/>
+                <line x1="750" y1="130" x2="750" y2="150" stroke="#4a5568" stroke-width="2"/>
+                
+                <!-- סמנכ"לים - רמה 2 -->
+                <!-- CTO -->
+                <rect x="50" y="150" width="200" height="80" fill="#48bb78" rx="10"/>
+                <text x="150" y="180" text-anchor="middle" fill="white" font-size="15" font-weight="bold">אורי לוי</text>
+                <text x="150" y="200" text-anchor="middle" fill="white" font-size="13">סמנכ"ל טכנולוגיות</text>
+                <circle cx="150" cy="215" r="7" fill="#68d391"/>
+                
+                <!-- CFO -->
+                <rect x="350" y="150" width="200" height="80" fill="#ed8936" rx="10"/>
+                <text x="450" y="180" text-anchor="middle" fill="white" font-size="15" font-weight="bold">רונית ברק</text>
+                <text x="450" y="200" text-anchor="middle" fill="white" font-size="13">סמנכ"לית כספים</text>
+                <circle cx="450" cy="215" r="7" fill="#fbd38d"/>
+                
+                <!-- CMO -->
+                <rect x="650" y="150" width="200" height="80" fill="#e53e3e" rx="10"/>
+                <text x="750" y="180" text-anchor="middle" fill="white" font-size="15" font-weight="bold">יוסי מזרחי</text>
+                <text x="750" y="200" text-anchor="middle" fill="white" font-size="13">סמנכ"ל שיווק</text>
+                <circle cx="750" cy="215" r="7" fill="#fc8181"/>
+                
+                <!-- קווי חיבור לרמה 3 -->
+                <!-- מתחת ל-CTO -->
+                <line x1="150" y1="230" x2="150" y2="260" stroke="#4a5568" stroke-width="2"/>
+                <line x1="70" y1="260" x2="230" y2="260" stroke="#4a5568" stroke-width="2"/>
+                <line x1="70" y1="260" x2="70" y2="280" stroke="#4a5568" stroke-width="2"/>
+                <line x1="230" y1="260" x2="230" y2="280" stroke="#4a5568" stroke-width="2"/>
+                
+                <!-- מתחת ל-CFO -->
+                <line x1="450" y1="230" x2="450" y2="260" stroke="#4a5568" stroke-width="2"/>
+                <line x1="370" y1="260" x2="530" y2="260" stroke="#4a5568" stroke-width="2"/>
+                <line x1="370" y1="260" x2="370" y2="280" stroke="#4a5568" stroke-width="2"/>
+                <line x1="530" y1="260" x2="530" y2="280" stroke="#4a5568" stroke-width="2"/>
+                
+                <!-- מתחת ל-CMO -->
+                <line x1="750" y1="230" x2="750" y2="260" stroke="#4a5568" stroke-width="2"/>
+                <line x1="670" y1="260" x2="830" y2="260" stroke="#4a5568" stroke-width="2"/>
+                <line x1="670" y1="260" x2="670" y2="280" stroke="#4a5568" stroke-width="2"/>
+                <line x1="830" y1="260" x2="830" y2="280" stroke="#4a5568" stroke-width="2"/>
+                
+                <!-- מנהלי מחלקות - רמה 3 -->
+                <!-- תחת CTO -->
+                <rect x="10" y="280" width="120" height="60" fill="#9ae6b4" rx="8"/>
+                <text x="70" y="305" text-anchor="middle" fill="#22543d" font-size="13" font-weight="bold">מיכל שרון</text>
+                <text x="70" y="322" text-anchor="middle" fill="#22543d" font-size="11">מנהלת פיתוח</text>
+                
+                <rect x="170" y="280" width="120" height="60" fill="#9ae6b4" rx="8"/>
+                <text x="230" y="305" text-anchor="middle" fill="#22543d" font-size="13" font-weight="bold">תומר גולן</text>
+                <text x="230" y="322" text-anchor="middle" fill="#22543d" font-size="11">מנהל QA</text>
+                
+                <!-- תחת CFO -->
+                <rect x="310" y="280" width="120" height="60" fill="#fbd38d" rx="8"/>
+                <text x="370" y="305" text-anchor="middle" fill="#744210" font-size="13" font-weight="bold">שירה אבני</text>
+                <text x="370" y="322" text-anchor="middle" fill="#744210" font-size="11">מנהלת חשבות</text>
+                
+                <rect x="470" y="280" width="120" height="60" fill="#fbd38d" rx="8"/>
+                <text x="530" y="305" text-anchor="middle" fill="#744210" font-size="13" font-weight="bold">עומר דהן</text>
+                <text x="530" y="322" text-anchor="middle" fill="#744210" font-size="11">מנהל גיוס</text>
+                
+                <!-- תחת CMO -->
+                <rect x="610" y="280" width="120" height="60" fill="#fc8181" rx="8"/>
+                <text x="670" y="305" text-anchor="middle" fill="#742a2a" font-size="13" font-weight="bold">ליאת כץ</text>
+                <text x="670" y="322" text-anchor="middle" fill="#742a2a" font-size="11">מנהלת תוכן</text>
+                
+                <rect x="770" y="280" width="120" height="60" fill="#fc8181" rx="8"/>
+                <text x="830" y="305" text-anchor="middle" fill="#742a2a" font-size="13" font-weight="bold">רועי פרץ</text>
+                <text x="830" y="322" text-anchor="middle" fill="#742a2a" font-size="11">מנהל דיגיטל</text>
+                
+                <!-- קווי חיבור לעובדים -->
+                <line x1="70" y1="340" x2="70" y2="360" stroke="#4a5568" stroke-width="1.5"/>
+                <line x1="230" y1="340" x2="230" y2="360" stroke="#4a5568" stroke-width="1.5"/>
+                <line x1="370" y1="340" x2="370" y2="360" stroke="#4a5568" stroke-width="1.5"/>
+                <line x1="530" y1="340" x2="530" y2="360" stroke="#4a5568" stroke-width="1.5"/>
+                <line x1="670" y1="340" x2="670" y2="360" stroke="#4a5568" stroke-width="1.5"/>
+                <line x1="830" y1="340" x2="830" y2="360" stroke="#4a5568" stroke-width="1.5"/>
+                
+                <!-- עובדים - רמה 4 -->
+                <rect x="20" y="360" width="100" height="45" fill="#e6fffa" stroke="#319795" stroke-width="2" rx="5"/>
+                <text x="70" y="378" text-anchor="middle" fill="#234e52" font-size="11">5 מפתחים</text>
+                <text x="70" y="393" text-anchor="middle" fill="#234e52" font-size="10">⚙️ Dev Team</text>
+                
+                <rect x="180" y="360" width="100" height="45" fill="#e6fffa" stroke="#319795" stroke-width="2" rx="5"/>
+                <text x="230" y="378" text-anchor="middle" fill="#234e52" font-size="11">3 בודקים</text>
+                <text x="230" y="393" text-anchor="middle" fill="#234e52" font-size="10">🔍 QA Team</text>
+                
+                <rect x="320" y="360" width="100" height="45" fill="#fff5f5" stroke="#c53030" stroke-width="2" rx="5"/>
+                <text x="370" y="378" text-anchor="middle" fill="#742a2a" font-size="11">2 רו״חים</text>
+                <text x="370" y="393" text-anchor="middle" fill="#742a2a" font-size="10">💰 Finance</text>
+                
+                <rect x="480" y="360" width="100" height="45" fill="#fff5f5" stroke="#c53030" stroke-width="2" rx="5"/>
+                <text x="530" y="378" text-anchor="middle" fill="#742a2a" font-size="11">2 מגייסים</text>
+                <text x="530" y="393" text-anchor="middle" fill="#742a2a" font-size="10">👥 HR</text>
+                
+                <rect x="620" y="360" width="100" height="45" fill="#fffaf0" stroke="#dd6b20" stroke-width="2" rx="5"/>
+                <text x="670" y="378" text-anchor="middle" fill="#7c2d12" font-size="11">4 כותבים</text>
+                <text x="670" y="393" text-anchor="middle" fill="#7c2d12" font-size="10">✍️ Content</text>
+                
+                <rect x="780" y="360" width="100" height="45" fill="#fffaf0" stroke="#dd6b20" stroke-width="2" rx="5"/>
+                <text x="830" y="378" text-anchor="middle" fill="#7c2d12" font-size="11">3 משווקים</text>
+                <text x="830" y="393" text-anchor="middle" fill="#7c2d12" font-size="10">📱 Digital</text>
+                
+                <!-- מקרא -->
+                <rect x="50" y="450" width="800" height="120" fill="#f7fafc" stroke="#cbd5e0" stroke-width="2" rx="8"/>
+                <text x="450" y="475" text-anchor="middle" font-size="16" font-weight="bold" fill="#2d3748">מקרא</text>
+                
+                <rect x="80" y="490" width="30" height="20" fill="#5a67d8" rx="3"/>
+                <text x="120" y="505" font-size="13" fill="#2d3748">הנהלה עליונה</text>
+                
+                <rect x="280" y="490" width="30" height="20" fill="#48bb78" rx="3"/>
+                <text x="320" y="505" font-size="13" fill="#2d3748">חטיבת טכנולוגיה</text>
+                
+                <rect x="480" y="490" width="30" height="20" fill="#ed8936" rx="3"/>
+                <text x="520" y="505" font-size="13" fill="#2d3748">חטיבת כספים</text>
+                
+                <rect x="680" y="490" width="30" height="20" fill="#e53e3e" rx="3"/>
+                <text x="720" y="505" font-size="13" fill="#2d3748">חטיבת שיווק</text>
+                
+                <text x="450" y="540" text-anchor="middle" font-size="12" fill="#718096">
+                    סה"כ עובדים בארגון: 27 | משרדים: תל אביב, חיפה | ייסוד: 2019
+                </text>
+            </svg>
+        </div>
+        
+        <div class="info-box">
+            <h3>📊 נתונים כלליים על הארגון</h3>
+            <ul>
+                <li><strong>שם החברה:</strong> טכנולוג'ייט בע"מ</li>
+                <li><strong>תחום פעילות:</strong> פיתוח תוכנה ושירותי ענן</li>
+                <li><strong>מספר עובדים:</strong> 27</li>
+                <li><strong>מספר מחלקות ראשיות:</strong> 3 (טכנולוגיה, כספים, שיווק)</li>
+                <li><strong>מספר מנהלים בכירים:</strong> 4 (כולל המנכ"לית)</li>
+            </ul>
+        </div>
+        
+        <div class="employee-list">
+            <div class="employee-card">
+                <strong>👨‍💻 מפתחים</strong>
+                <p>5 עובדים</p>
+            </div>
+            <div class="employee-card">
+                <strong>🔍 בודקי תוכנה</strong>
+                <p>3 עובדים</p>
+            </div>
+            <div class="employee-card">
+                <strong>💰 רואי חשבון</strong>
+                <p>2 עובדים</p>
+            </div>
+            <div class="employee-card">
+                <strong>👥 גיוס והדרכה</strong>
+                <p>2 עובדים</p>
+            </div>
+            <div class="employee-card">
+                <strong>✍️ כותבי תוכן</strong>
+                <p>4 עובדים</p>
+            </div>
+            <div class="employee-card">
+                <strong>📱 שיווק דיגיטלי</strong>
+                <p>3 עובדים</p>
+            </div>
+        </div>
+        
+        <div class="questions">
+            <h2>❓ שאלות מומלצות לבדיקה:</h2>
+            <ul>
+                <li>מי המנכ"לית של החברה?</li>
+                <li>כמה סמנכ"לים יש בארגון ומה תפקידיהם?</li>
+                <li>איזו מחלקה יש בה הכי הרבה עובדים?</li>
+                <li>מי מנהלת את מחלקת הפיתוח?</li>
+                <li>באיזה צבע מסומנת חטיבת השיווק בתרשים?</li>
+                <li>כמה עובדים סך הכל יש בארגון?</li>
+                <li>מי הסמנכ"ל הכספים?</li>
+                <li>תחת איזה סמנכ"ל עובדים המגייסים?</li>
+                <li>כמה מנהלי מחלקות יש תחת סמנכ"ל הטכנולוגיות?</li>
+                <li>באיזו שנה נוסדה החברה?</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

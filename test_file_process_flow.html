@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תהליך פיתוח מוצר</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #1e293b;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .flowchart {
+            margin: 40px 0;
+            overflow-x: auto;
+        }
+        .process-details {
+            background: #f1f5f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .process-details h2 {
+            color: #1e293b;
+            margin-top: 0;
+        }
+        .stage {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-right: 5px solid #667eea;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .stage h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .stage ul {
+            margin: 10px 0;
+            padding-right: 20px;
+        }
+        .stage li {
+            margin: 8px 0;
+            color: #475569;
+        }
+        .timeline {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-right: 4px solid #f59e0b;
+        }
+        .timeline strong {
+            color: #92400e;
+        }
+        .questions {
+            background: linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        .questions h2 {
+            color: #581c87;
+            margin-top: 0;
+        }
+        .questions ul {
+            line-height: 2;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 תהליך פיתוח מוצר חדש</h1>
+        <p class="subtitle">מרעיון ועד השקה - המדריך המלא</p>
+        
+        <div class="flowchart">
+            <svg width="1000" height="800" viewBox="0 0 1000 800">
+                <!-- התחלה -->
+                <ellipse cx="500" cy="50" rx="80" ry="40" fill="#10b981" stroke="#065f46" stroke-width="3"/>
+                <text x="500" y="58" text-anchor="middle" fill="white" font-size="18" font-weight="bold">התחלה</text>
+                <line x1="500" y1="90" x2="500" y2="130" stroke="#334155" stroke-width="3" marker-end="url(#arrowhead)"/>
+                
+                <!-- שלב 1 - מחקר -->
+                <rect x="400" y="130" width="200" height="80" fill="#3b82f6" rx="10" stroke="#1e40af" stroke-width="3"/>
+                <text x="500" y="160" text-anchor="middle" fill="white" font-size="16" font-weight="bold">שלב 1</text>
+                <text x="500" y="183" text-anchor="middle" fill="white" font-size="15">מחקר שוק</text>
+                <line x1="500" y1="210" x2="500" y2="250" stroke="#334155" stroke-width="3" marker-end="url(#arrowhead)"/>
+                
+                <!-- שלב 2 - תכנון -->
+                <rect x="400" y="250" width="200" height="80" fill="#8b5cf6" rx="10" stroke="#5b21b6" stroke-width="3"/>
+                <text x="500" y="280" text-anchor="middle" fill="white" font-size="16" font-weight="bold">שלב 2</text>
+                <text x="500" y="303" text-anchor="middle" fill="white" font-size="15">תכנון ועיצוב</text>
+                <line x1="500" y1="330" x2="500" y2="370" stroke="#334155" stroke-width="3" marker-end="url(#arrowhead)"/>
+                
+                <!-- החלטה - אישור? -->
+                <path d="M 500 370 L 600 420 L 500 470 L 400 420 Z" fill="#f59e0b" stroke="#b45309" stroke-width="3"/>
+                <text x="500" y="418" text-anchor="middle" fill="white" font-size="14" font-weight="bold">אישור</text>
+                <text x="500" y="435" text-anchor="middle" fill="white" font-size="14">הנהלה?</text>
+                
+                <!-- לא - חזור לתכנון -->
+                <line x1="400" y1="420" x2="300" y2="420" stroke="#ef4444" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <text x="320" y="410" text-anchor="middle" fill="#dc2626" font-size="14" font-weight="bold">לא</text>
+                <line x1="300" y1="420" x2="300" y2="290" stroke="#ef4444" stroke-width="3"/>
+                <line x1="300" y1="290" x2="400" y2="290" stroke="#ef4444" stroke-width="3" marker-end="url(#arrowhead)"/>
+                
+                <!-- כן - המשך -->
+                <line x1="500" y1="470" x2="500" y2="510" stroke="#334155" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <text x="520" y="495" text-anchor="start" fill="#10b981" font-size="14" font-weight="bold">כן</text>
+                
+                <!-- שלב 3 - פיתוח -->
+                <rect x="400" y="510" width="200" height="80" fill="#ec4899" rx="10" stroke="#be185d" stroke-width="3"/>
+                <text x="500" y="540" text-anchor="middle" fill="white" font-size="16" font-weight="bold">שלב 3</text>
+                <text x="500" y="563" text-anchor="middle" fill="white" font-size="15">פיתוח המוצר</text>
+                <line x1="500" y1="590" x2="500" y2="630" stroke="#334155" stroke-width="3" marker-end="url(#arrowhead)"/>
+                
+                <!-- שלב 4 - בדיקות -->
+                <rect x="400" y="630" width="200" height="80" fill="#06b6d4" rx="10" stroke="#0e7490" stroke-width="3"/>
+                <text x="500" y="660" text-anchor="middle" fill="white" font-size="16" font-weight="bold">שלב 4</text>
+                <text x="500" y="683" text-anchor="middle" fill="white" font-size="15">בדיקות ואיכות</text>
+                
+                <!-- החלטה - עובר בדיקות? -->
+                <line x1="600" y1="670" x2="700" y2="670" stroke="#334155" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <path d="M 700 670 L 780 710 L 700 750 L 620 710 Z" fill="#f59e0b" stroke="#b45309" stroke-width="3"/>
+                <text x="700" y="708" text-anchor="middle" fill="white" font-size="13" font-weight="bold">עובר</text>
+                <text x="700" y="723" text-anchor="middle" fill="white" font-size="13">בדיקות?</text>
+                
+                <!-- לא - חזור לפיתוח -->
+                <line x1="700" y1="750" x2="700" y2="780" stroke="#ef4444" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <text x="720" y="770" text-anchor="start" fill="#dc2626" font-size="14" font-weight="bold">לא</text>
+                <line x1="700" y1="780" x2="700" y2="550" stroke="#ef4444" stroke-width="3"/>
+                <line x1="700" y1="550" x2="600" y2="550" stroke="#ef4444" stroke-width="3" marker-end="url(#arrowhead)"/>
+                
+                <!-- כן - המשך להשקה -->
+                <line x1="620" y1="710" x2="500" y2="710" stroke="#334155" stroke-width="3"/>
+                <line x1="500" y1="710" x2="500" y2="730" stroke="#334155" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <text x="540" y="705" text-anchor="start" fill="#10b981" font-size="14" font-weight="bold">כן</text>
+                
+                <!-- שלב 5 - השקה -->
+                <rect x="400" y="730" width="200" height="50" fill="#10b981" rx="10" stroke="#065f46" stroke-width="3"/>
+                <text x="500" y="762" text-anchor="middle" fill="white" font-size="16" font-weight="bold">שלב 5 - השקה! 🎉</text>
+                
+                <!-- חיצים -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#334155" />
+                    </marker>
+                </defs>
+                
+                <!-- הערות בצד -->
+                <text x="50" y="170" fill="#64748b" font-size="13">⏱️ 2-3 שבועות</text>
+                <text x="50" y="290" fill="#64748b" font-size="13">⏱️ 3-4 שבועות</text>
+                <text x="50" y="550" fill="#64748b" font-size="13">⏱️ 8-12 שבועות</text>
+                <text x="50" y="670" fill="#64748b" font-size="13">⏱️ 2-3 שבועות</text>
+                
+                <!-- מקרא -->
+                <rect x="50" y="50" width="250" height="100" fill="white" stroke="#cbd5e0" stroke-width="2" rx="8"/>
+                <text x="175" y="75" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">מקרא</text>
+                <rect x="70" y="85" width="30" height="20" fill="#3b82f6" rx="3"/>
+                <text x="110" y="100" font-size="12" fill="#1e293b">שלב תהליך</text>
+                <path d="M 70 115 L 85 125 L 70 135 L 55 125 Z" fill="#f59e0b"/>
+                <text x="110" y="130" font-size="12" fill="#1e293b">נקודת החלטה</text>
+            </svg>
+        </div>
+        
+        <div class="process-details">
+            <h2>📋 פירוט השלבים</h2>
+            
+            <div class="stage">
+                <h3>🔍 שלב 1 - מחקר שוק</h3>
+                <ul>
+                    <li>זיהוי צרכי הלקוחות והקהל היעד</li>
+                    <li>ניתוח מתחרים וסקר שוק</li>
+                    <li>איסוף משוב ראשוני מלקוחות פוטנציאליים</li>
+                    <li>הגדרת ערך מוסף ייחודי למוצר</li>
+                </ul>
+                <div class="timeline"><strong>⏱️ משך זמן:</strong> 2-3 שבועות</div>
+            </div>
+            
+            <div class="stage">
+                <h3>✏️ שלב 2 - תכנון ועיצוב</h3>
+                <ul>
+                    <li>פיתוח קונסטפט ודרישות מוצר מפורטות</li>
+                    <li>עיצוב ממשק משתמש (UI/UX)</li>
+                    <li>הכנת אב-טיפוס (Prototype)</li>
+                    <li>הצגה להנהלה ובעלי עניין</li>
+                </ul>
+                <div class="timeline"><strong>⏱️ משך זמן:</strong> 3-4 שבועות</div>
+            </div>
+            
+            <div class="stage">
+                <h3>⚙️ שלב 3 - פיתוח המוצר</h3>
+                <ul>
+                    <li>כתיבת קוד ופיתוח תשתיות</li>
+                    <li>אינטגרציה עם מערכות קיימות</li>
+                    <li>פיתוח תכונות ליבה ומשניות</li>
+                    <li>בדיקות מתמשכות במהלך הפיתוח</li>
+                </ul>
+                <div class="timeline"><strong>⏱️ משך זמן:</strong> 8-12 שבועות</div>
+            </div>
+            
+            <div class="stage">
+                <h3>🔬 שלב 4 - בדיקות ואיכות</h3>
+                <ul>
+                    <li>בדיקות פונקציונליות מקיפות</li>
+                    <li>בדיקות ביצועים ועומסים</li>
+                    <li>בדיקות אבטחה</li>
+                    <li>תיקון באגים והטמעת שיפורים</li>
+                </ul>
+                <div class="timeline"><strong>⏱️ משך זמן:</strong> 2-3 שבועות</div>
+            </div>
+            
+            <div class="stage">
+                <h3>🚀 שלב 5 - השקה</h3>
+                <ul>
+                    <li>הפצת המוצר לשוק</li>
+                    <li>מעקב אחר ביצועים ומשוב משתמשים</li>
+                    <li>תמיכה טכנית וטיפול בבעיות</li>
+                    <li>תכנון עדכונים וגרסאות עתידיות</li>
+                </ul>
+                <div class="timeline"><strong>⏱️ משך זמן:</strong> מתמשך</div>
+            </div>
+        </div>
+        
+        <div class="questions">
+            <h2>❓ שאלות מומלצות לבדיקה:</h2>
+            <ul>
+                <li>כמה שלבים יש בתהליך פיתוח המוצר?</li>
+                <li>מה קורה אם המוצר לא עובר את בדיקות האיכות?</li>
+                <li>איזה שלב לוקח הכי הרבה זמן?</li>
+                <li>מה השלב הראשון בתהליך?</li>
+                <li>באיזה צבע מסומן שלב הפיתוח בתרשים?</li>
+                <li>כמה נקודות החלטה יש בתרשים התהליך?</li>
+                <li>מה קורה אם ההנהלה לא מאשרת את התכנון?</li>
+                <li>כמה שבועות לוקח שלב מחקר השוק?</li>
+                <li>מה השלב האחרון בתהליך?</li>
+                <li>איזה פעילויות מתבצעות בשלב התכנון והעיצוב?</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

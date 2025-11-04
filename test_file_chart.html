@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דוח מכירות רבעוני</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .chart-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: right;
+        }
+        .data-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .questions {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .questions h2 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .questions ul {
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>דוח מכירות רבעוני - שנת 2024</h1>
+        
+        <p><strong>תאריך הדוח:</strong> 15 באוקטובר 2024</p>
+        <p><strong>מחלקה:</strong> מכירות ושיווק</p>
+        
+        <div class="chart-container">
+            <svg width="600" height="400" viewBox="0 0 600 400">
+                <!-- רקע -->
+                <rect width="600" height="400" fill="#ffffff"/>
+                
+                <!-- כותרת -->
+                <text x="300" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">
+                    מכירות לפי רבעון (באלפי ₪)
+                </text>
+                
+                <!-- צירים -->
+                <line x1="50" y1="350" x2="550" y2="350" stroke="#333" stroke-width="2"/>
+                <line x1="50" y1="50" x2="50" y2="350" stroke="#333" stroke-width="2"/>
+                
+                <!-- תוויות ציר Y -->
+                <text x="35" y="350" text-anchor="end" font-size="12">0</text>
+                <text x="35" y="290" text-anchor="end" font-size="12">100</text>
+                <text x="35" y="230" text-anchor="end" font-size="12">200</text>
+                <text x="35" y="170" text-anchor="end" font-size="12">300</text>
+                <text x="35" y="110" text-anchor="end" font-size="12">400</text>
+                <text x="35" y="55" text-anchor="end" font-size="12">500</text>
+                
+                <!-- קווי רקע אופקיים -->
+                <line x1="50" y1="290" x2="550" y2="290" stroke="#e0e0e0" stroke-width="1"/>
+                <line x1="50" y1="230" x2="550" y2="230" stroke="#e0e0e0" stroke-width="1"/>
+                <line x1="50" y1="170" x2="550" y2="170" stroke="#e0e0e0" stroke-width="1"/>
+                <line x1="50" y1="110" x2="550" y2="110" stroke="#e0e0e0" stroke-width="1"/>
+                
+                <!-- עמודות -->
+                <!-- Q1: 320K -->
+                <rect x="100" y="158" width="80" height="192" fill="#3498db"/>
+                <text x="140" y="145" text-anchor="middle" font-size="14" font-weight="bold">320</text>
+                
+                <!-- Q2: 280K -->
+                <rect x="220" y="182" width="80" height="168" fill="#2ecc71"/>
+                <text x="260" y="169" text-anchor="middle" font-size="14" font-weight="bold">280</text>
+                
+                <!-- Q3: 450K -->
+                <rect x="340" y="80" width="80" height="270" fill="#e74c3c"/>
+                <text x="380" y="67" text-anchor="middle" font-size="14" font-weight="bold">450</text>
+                
+                <!-- Q4: 390K -->
+                <rect x="460" y="116" width="80" height="234" fill="#f39c12"/>
+                <text x="500" y="103" text-anchor="middle" font-size="14" font-weight="bold">390</text>
+                
+                <!-- תוויות רבעונים -->
+                <text x="140" y="370" text-anchor="middle" font-size="13">רבעון 1</text>
+                <text x="260" y="370" text-anchor="middle" font-size="13">רבעון 2</text>
+                <text x="380" y="370" text-anchor="middle" font-size="13">רבעון 3</text>
+                <text x="500" y="370" text-anchor="middle" font-size="13">רבעון 4</text>
+            </svg>
+        </div>
+        
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>רבעון</th>
+                    <th>מכירות (אלפי ₪)</th>
+                    <th>שינוי מרבעון קודם</th>
+                    <th>אחוז שינוי</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>רבעון 1</td>
+                    <td>320</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>רבעון 2</td>
+                    <td>280</td>
+                    <td>-40</td>
+                    <td>-12.5%</td>
+                </tr>
+                <tr>
+                    <td>רבעון 3</td>
+                    <td>450</td>
+                    <td>+170</td>
+                    <td>+60.7%</td>
+                </tr>
+                <tr>
+                    <td>רבעון 4</td>
+                    <td>390</td>
+                    <td>-60</td>
+                    <td>-13.3%</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="questions">
+            <h2>שאלות מומלצות לבדיקה:</h2>
+            <ul>
+                <li>מה היה הרבעון עם המכירות הגבוהות ביותר?</li>
+                <li>באיזה אחוזים גדלו המכירות ברבעון 3 לעומת רבעון 2?</li>
+                <li>מה סך המכירות של כל השנה?</li>
+                <li>באיזה רבעון היה הירידה הגדולה ביותר במכירות?</li>
+                <li>מה הממוצע של המכירות הרבעוניות?</li>
+                <li>באיזה צבע מסומן רבעון 3 בגרף?</li>
+                <li>כמה אלפי שקלים מכרו ברבעון הראשון?</li>
+                <li>מתי הוכן הדוח הזה?</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
