@@ -1,0 +1,131 @@
+# Performance Verification Script for Open WebUI 0.6.26
+# This script checks if performance optimizations are properly configured
+
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Open WebUI Performance Configuration Check" -ForegroundColor Cyan
+Write-Host "========================================`n" -ForegroundColor Cyan
+
+$envPath = ".env"
+$configStatus = @()
+
+function Test-EnvVariable {
+    param(
+        [string]$VarName,
+        [string]$ExpectedValue,
+        [string]$Description
+    )
+    
+    $value = $null
+    # Try to read from .env file
+    if (Test-Path $envPath) {
+        $content = Get-Content $envPath
+        $line = $content | Where-Object { $_ -match "^$VarName=" }
+        if ($line) {
+            $value = ($line -split '=', 2)[1].Trim()
+        }
+    }
+    
+    $status = @{
+        Name = $VarName
+        Expected = $ExpectedValue
+        Current = if ($value) { $value } else { "(not set)" }
+        Description = $Description
+        IsOptimal = ($value -eq $ExpectedValue) -or ((-not $value) -and ($ExpectedValue -eq ""))
+    }
+    
+    return $status
+}
+
+# Check critical performance settings
+Write-Host "Checking Critical Performance Settings..." -ForegroundColor Yellow
+Write-Host ""
+
+$checks = @(
+    @{Name="ENABLE_WEBSOCKET_SUPPORT"; Expected="False"; Desc="WebSocket Support (BIGGEST IMPACT)"},
+    @{Name="WEBSOCKET_MANAGER"; Expected=""; Desc="Redis WebSocket Manager"},
+    @{Name="REDIS_URL"; Expected=""; Desc="Redis Connection"},
+    @{Name="ENABLE_OTEL"; Expected="False"; Desc="OpenTelemetry"},
+    @{Name="ENABLE_OTEL_TRACES"; Expected="False"; Desc="OTEL Traces"},
+    @{Name="ENABLE_OTEL_METRICS"; Expected="False"; Desc="OTEL Metrics"},
+    @{Name="ENABLE_REALTIME_CHAT_SAVE"; Expected="False"; Desc="Real-time Chat Save"},
+    @{Name="ENABLE_COMPRESSION_MIDDLEWARE"; Expected="False"; Desc="Compression Middleware"},
+    @{Name="ENABLE_VERSION_UPDATE_CHECK"; Expected="False"; Desc="Version Update Check"},
+    @{Name="GLOBAL_LOG_LEVEL"; Expected="WARNING"; Desc="Global Log Level"}
+)
+
+$optimal = 0
+$total = $checks.Count
+
+foreach ($check in $checks) {
+    $result = Test-EnvVariable -VarName $check.Name -ExpectedValue $check.Expected -Description $check.Desc
+    
+    $status = if ($result.IsOptimal) { 
+        $optimal++
+        "[OK] OPTIMAL" 
+    } else { 
+        "[!] NOT OPTIMAL" 
+    }
+    
+    $color = if ($result.IsOptimal) { "Green" } else { "Red" }
+    
+    Write-Host ("  {0,-35} {1}" -f $check.Desc, $status) -ForegroundColor $color
+    Write-Host ("    Variable: {0}" -f $check.Name) -ForegroundColor Gray
+    Write-Host ("    Expected: {0}" -f $check.Expected) -ForegroundColor Gray
+    Write-Host ("    Current:  {0}" -f $result.Current) -ForegroundColor $(if ($result.IsOptimal) { "Gray" } else { "Yellow" })
+    Write-Host ""
+}
+
+# Summary
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Summary:" -ForegroundColor Cyan
+Write-Host "  Optimal Settings: $optimal / $total" -ForegroundColor $(if ($optimal -eq $total) { "Green" } else { "Yellow" })
+
+$percentage = [math]::Round(($optimal / $total) * 100, 0)
+Write-Host "  Configuration Score: $percentage%" -ForegroundColor $(if ($percentage -eq 100) { "Green" } elseif ($percentage -ge 70) { "Yellow" } else { "Red" })
+
+Write-Host ""
+
+if ($optimal -eq $total) {
+    Write-Host "[OK] All performance optimizations are properly configured!" -ForegroundColor Green
+    Write-Host "  Your system should perform similar to version 0.3.32" -ForegroundColor Green
+} else {
+    Write-Host "[!] Some optimizations are not configured properly." -ForegroundColor Yellow
+    Write-Host "  To fix:" -ForegroundColor Yellow
+    Write-Host "  1. Make sure the .env file exists in the root directory" -ForegroundColor White
+    Write-Host "  2. Copy the provided optimized .env configuration" -ForegroundColor White
+    Write-Host "  3. Restart the backend server" -ForegroundColor White
+}
+
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+
+# Check if .env file exists
+Write-Host "`nEnvironment File Check:" -ForegroundColor Yellow
+if (Test-Path $envPath) {
+    Write-Host "  [OK] .env file found" -ForegroundColor Green
+    $lineCount = (Get-Content $envPath | Where-Object { $_ -and $_ -notmatch '^\s*#' -and $_ -notmatch '^\s*$' }).Count
+    Write-Host "  Configuration lines: $lineCount" -ForegroundColor Gray
+} else {
+    Write-Host "  [!] .env file NOT found!" -ForegroundColor Red
+    Write-Host "    Create .env file in: $(Get-Location)" -ForegroundColor Yellow
+}
+
+# Check if backend is running
+Write-Host "`nBackend Status:" -ForegroundColor Yellow
+$uvicornProcess = Get-Process -Name "python*" -ErrorAction SilentlyContinue
+if ($uvicornProcess) {
+    Write-Host "  [OK] Python process running (PID: $($uvicornProcess.Id))" -ForegroundColor Green
+    Write-Host "    [!] Restart required for .env changes to take effect!" -ForegroundColor Yellow
+} else {
+    Write-Host "  [!] No Python process detected" -ForegroundColor Red
+}
+
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Next Steps:" -ForegroundColor Yellow
+Write-Host "  1. Review the settings above" -ForegroundColor White
+Write-Host "  2. If changes needed, update .env file" -ForegroundColor White
+Write-Host "  3. Restart backend: cd backend; .\start_windows.bat" -ForegroundColor White
+Write-Host "  4. Test performance in browser (F12 → Performance tab)" -ForegroundColor White
+Write-Host "  5. Check Network tab for reduced WebSocket traffic" -ForegroundColor White
+Write-Host "========================================`n" -ForegroundColor Cyan
